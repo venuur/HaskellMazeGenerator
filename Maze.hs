@@ -315,9 +315,15 @@ randomSpanningTreeFrom
 main = do
     let width = 24
         height = 12
-    spanningTree <- randomSpanningTreeFrom testSpanningTree testActiveGraph $ fullMazeGraph width height
+        baseSpanningTree = MazeGraph [MazeNode (XYLocation 0 0) []]
+        baseActiveGraph = MazeGraph [
+            MazeNode (XYLocation 0 0) [XYLocation 1 0, XYLocation 0 1]]
+        baseGraph = fullMazeGraph width height
+    spanningTree <- randomSpanningTreeFrom baseSpanningTree baseActiveGraph baseGraph
     let spanningTreeMaze = mazeFromGraph width height spanningTree
     putStrLn $ show spanningTreeMaze
+    
+
     
 testEmptyMaze = Maze 4 (replicate 8 NoCorridor)
 testLocations = [XYLocation x y | y <- [0..1], x <- [0..3]]
